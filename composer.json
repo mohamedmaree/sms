@@ -1,0 +1,21 @@
+{
+    "name": "maree/sms",
+    "description": "collect alot of sms service providers",
+    "type": "library",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "mohamed maree",
+            "email": "m7mdmaree26@gmail.com"
+        }
+    ],
+    "minimum-stability": "dev",
+    "require": {},
+    "extra": {
+        "laravel": {
+            "providers": [
+                "maree\\sms\\SMSServiceProvider"
+            ]
+        }
+    }    
+}

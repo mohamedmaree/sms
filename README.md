@@ -12,7 +12,6 @@ composer require maree/sms
 ```php
 use Maree\Sms\SMS;
 
-// price = 100 ;  brand = mada ; information = [ config.information ] 
 SMS::send($sms_provider = 'yamamah',$user_name='test',$password='1234',$sender_name='Maree App',$phone='0020*********', $msg='sms sent successfuly');  
 
 
