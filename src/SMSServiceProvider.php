@@ -1,6 +1,6 @@
 <?php
 
-namespace Maree\Sms;
+namespace maree\sms;
 
 use Illuminate\Support\ServiceProvider;
 

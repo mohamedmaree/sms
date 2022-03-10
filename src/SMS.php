@@ -1,5 +1,5 @@
 <?php
-namespace Maree\Sms;
+namespace maree\sms;
 use Carbon\Carbon;
 
 class SMS {
