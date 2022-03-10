@@ -4,88 +4,52 @@ use Carbon\Carbon;
 
 class SMS {
 
-  public function send($key = '',$user_name='',$password='',$sender_name='',$phone='', $msg='') {
-    dd($key);
+  public static function send($key = '',$user_name='',$password='',$sender_name='',$phone='', $msg='') {
     switch ($key) {
     case 'yamamah':
-      $this->yamamah($phone, $msg);
+      return self::yamamah($user_name,$password,$sender_name,$phone,$msg);
       break;
     case '4jawaly':
-      $this->jawaly($phone, $msg);
-      break;
-    case 'gateway':
-      $this->gateway($phone, $msg);
+      return self::jawaly($user_name,$password,$sender_name,$phone,$msg);
       break;
     case 'hisms':
-      $this->hisms($phone, $msg);
+      return self::hisms($user_name,$password,$sender_name,$phone,$msg);
       break;
     case 'msegat':
-      $this->msegat($phone, $msg);
+      return self::msegat($user_name,$password,$sender_name,$phone,$msg);
       break;
     case 'oursms':
-      $this->oursms($phone, $msg);
+      return self::oursms($user_name,$password,$sender_name,$phone,$msg);
       break;
     case 'unifonic':
-      $this->unifonic($phone, $msg);
+      return self::unifonic($user_name,$password,$sender_name,$phone,$msg);
       break;
     case 'zain':
-      $this->zain($phone, $msg);
+      return self::zain($user_name,$password,$sender_name,$phone,$msg);
       break;
     }
 
   }
 
-  public function jawaly($user_name='',$password='',$sender_name='',$phone='', $msg='') {
+  public static function jawaly($user_name='',$password='',$sender_name='',$phone='', $msg='') {
     $text     = urlencode($msg);
     $sender   = urlencode($sender_name);
-    $url    = "https://www.4jawaly.net/api/sendsms.php?username=$username&password=$password&numbers=$phone&sender=$sender&message=$text&unicode=e&Rmduplicated=1&return=string";
+    $url    = "https://www.4jawaly.net/api/sendsms.php?username=$sender_name&password=$password&numbers=$phone&sender=$sender&message=$text&unicode=e&Rmduplicated=1&return=string";
     $result = file_get_contents($url, true);
+    return $result;
   }
 
-  public function gateway($user_name='',$password='',$sender_name='',$phone='', $msg='') {
-    $contextPostValues = http_build_query(array(
-      'user'     => $user_name,
-      'password' => $password,
-      'msisdn'   => $phone,
-      'sid'      => urlencode($sender_name),
-      'msg'      => $msg,
-      'fl'       => 0,
-    ));
-    $contextOptions['http'] = array(
-      'method'           => 'POST',
-      'header'           => 'Content-type: application/x-www-form-urlencoded',
-      'content'          => $contextPostValues,
-      'max_redirects'    => 0,
-      'protocol_version' => 1.0,
-      'timeout'          => 10,
-      'ignore_errors'    => TRUE,
-    );
-    $contextResouce = stream_context_create($contextOptions);
-    $url            = "apps.gateway.sa/vendorsms/pushsms.aspx";
-    $arrayResult    = file($url, FILE_IGNORE_NEW_LINES, $contextResouce);
-    $result         = $arrayResult[0];
-    if ($result) {
-      return true;
-    } else {
-      return false;
-    }
-  }
 
-  public function hisms($user_name='',$password='',$sender_name='',$phone='', $msg='') {
+  public static function hisms($user_name='',$password='',$sender_name='',$phone='', $msg='') {
     $sender   = urlencode($sender_name);
     $msg      = urlencode($msg);
 
-    $url    = "https://www.hisms.ws/api.php?send_sms&username=$username&password=$password&numbers=$phone&sender=$sender&message=$msg";
+    $url    = "https://www.hisms.ws/api.php?send_sms&username=$user_name&password=$password&numbers=$phone&sender=$sender&message=$msg";
     $result = file_get_contents($url, true);
-    if (false === $result) {
-      return false;
-    } else {
-      return true;
-    }
-
+    return $result;
   }
 
-  public function msegat($user_name='',$password='',$sender_name='',$phone='', $msg='') {
+  public static function msegat($user_name='',$password='',$sender_name='',$phone='', $msg='') {
     $ch = curl_init();
     curl_setopt($ch, CURLOPT_URL, "https://www.msegat.com/gw/sendsms.php");
     curl_setopt($ch, CURLOPT_RETURNTRANSFER, TRUE);
@@ -109,14 +73,11 @@ class SMS {
     $response = curl_exec($ch);
     $info     = curl_getinfo($ch);
     curl_close($ch);
-
-    return true;
-
+    return $response;
   }
 
-  public function oursms($user_name='',$password='',$sender_name='',$phone='', $msg='') {
+  public static function oursms($user_name='',$password='',$sender_name='',$phone='', $msg='') {
     $sender   = urlencode($sender_name);
-
     $text = urlencode($msg);
     $to   = '+' . $phone;
     // auth call
@@ -132,25 +93,21 @@ class SMS {
     //fopen($url,"r");
     //return $url;
     $ret = file_get_contents($url);
+    return $ret;
 
   }
 
-  public function unifonic($user_name='',$password='',$sender_name='',$phone='', $msg='') {
-    $sender = urlencode($sender_name);
-    $numbers = explode(',', $phone);
+  public static function unifonic($user_name='',$password='',$sender_name='',$phone='', $msg='') {
+    $sender  = urlencode($sender_name);
     $text    = urlencode($msg);
-    $url     = "http://api.unifonic.com/wrapper/sendSMS.php?userid=$user_name&password=$password&msg=$text&sender=$sender&to=$numbers&encoding=UTF8";
+    $url     = "http://api.unifonic.com/wrapper/sendSMS.php?userid=$user_name&password=$password&msg=$text&sender=$sender&to=$phone&encoding=UTF8";
     $result  = @file_get_contents($url, true);
-    if (false === $result) {
-      return false;
-    } else {
-      return true;
-    }
+    return $result;
   }
 
-  public function zain($user_name='',$password='',$sender_name='',$phone='', $msg='') {
-    $username = $data->user_name;
-    $password = $data->password;
+  public static function zain($user_name='',$password='',$sender_name='',$phone='', $msg='') {
+    $username = $user_name;
+    $password = $password;
     $sender = urlencode($sender_name);
     $to   = $phone; // Should be like 966530007039
     $text = urlencode($msg . '   ');
@@ -174,8 +131,7 @@ class SMS {
 
   }
 
-  public function yamamah($user_name='',$password='',$sender_name='',$phone='', $msg='') {
-
+  public static function yamamah($user_name='',$password='',$sender_name='',$phone='', $msg='') {
     $url    = 'api.yamamah.com/SendSMS';
     $to     = $phone; // Should be like 966530007039
     $text   = urlencode($msg);
@@ -202,6 +158,7 @@ class SMS {
     ));
     $result = curl_exec($ch);
     curl_close($ch);
+    return $result;
   }
-
+   
 }

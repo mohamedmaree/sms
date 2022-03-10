@@ -21,7 +21,6 @@ SMS::send($sms_provider = 'yamamah',$user_name='test',$password='1234',$sender_n
 ## current sms service providers :
 - yamamah
 - 4jawaly
-- gateway
 - hisms
 - msegat
 - oursms
