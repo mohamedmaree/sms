@@ -109,7 +109,7 @@ class SMS {
     $username = $user_name;
     $password = $password;
     $sender = urlencode($sender_name);
-    $to   = $phone; // Should be like 966530007039
+    $to   = $phone; 
     $text = urlencode($msg . '   ');
     $link = "https://www.zain.im/index.php/api/sendsms/?user=$user_name&pass=$password&to=$to&message=$text&sender=$sender";
     if (function_exists('curl_init')) {
@@ -133,13 +133,13 @@ class SMS {
 
   public static function yamamah($user_name='',$password='',$sender_name='',$phone='', $msg='') {
     $url    = 'api.yamamah.com/SendSMS';
-    $to     = $phone; // Should be like 966530007039
+    $to     = $phone; 
     $text   = urlencode($msg);
     $fields = array(
       "Username"        => $user_name,
       "Password"        => $password,
       "Message"         => $text,
-      "RecepientNumber" => $to, //'00966'.ltrim($numbers,'0'),
+      "RecepientNumber" => $to, 
       "ReplacementList" => "",
       "SendDateTime"    => "0",
       "EnableDR"        => False,

@@ -16,7 +16,7 @@ SMS::send($sms_provider = 'yamamah',$user_name='test',$password='1234',$sender_n
 
 
 ```
-
+prefer to use jobs in sending many sms
 
 ## current sms service providers :
 - yamamah
