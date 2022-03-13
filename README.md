@@ -6,13 +6,17 @@ You can install the package via [Composer](https://getcomposer.org).
 ```bash
 composer require maree/sms
 ```
+Publish your sms config file with
 
+```bash
+php artisan vendor:publish --provider="maree\sms\SMSServiceProvider" --tag="sms"
+```
 ## Usage
 
 ```php
 use maree\sms\SMS;
 
-SMS::send($sms_provider = 'yamamah',$user_name='test',$password='1234',$sender_name='Maree App',$phone='0020*********', $msg='sms sent successfuly');  
+SMS::send($phone='0020*********', $msg='sms sent successfuly');  
 
 
 ```

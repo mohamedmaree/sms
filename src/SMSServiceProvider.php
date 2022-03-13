@@ -13,7 +13,9 @@ class SMSServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        //
+        $this->publishes([
+            __DIR__.'/config/sms.php' => config_path('sms.php'),
+        ],'sms');
     }
 
     /**
@@ -23,6 +25,8 @@ class SMSServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-      //
+        $this->mergeConfigFrom(
+            __DIR__.'/config/sms.php', 'sms'
+        );
     }
 }
