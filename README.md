@@ -11,6 +11,13 @@ Publish your sms config file with
 ```bash
 php artisan vendor:publish --provider="maree\sms\SMSServiceProvider" --tag="sms"
 ```
+then change your sms config from config/sms.php file
+```php
+    "service_provider" => "", // yamamah|4jawaly|hisms|msegat|oursms|unifonic|zain
+    "user_name"        => "", 
+    "password"         => "",
+    "sender_name"      => "",
+```
 ## Usage
 
 ```php
