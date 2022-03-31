@@ -13,6 +13,8 @@ return [
     "user_name"        => "",
     "password"         => "",
     "sender_name"      => "",
+    "api_token"        => ""
+
 
 
 ];

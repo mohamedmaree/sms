@@ -89,11 +89,21 @@ class SMS {
     $password = config('sms.password');
     $sender   = urlencode(config('sms.sender_name'));
     $msg      = urlencode($msg);
+    $api_token = config('sms.api_token');
 
     // auth call
     //$url = "http://www.oursms.net/api/sendsms.php?username=$user_name&password=$password&numbers=$to&message=$text&sender=$sendername&unicode=E&return=full";
     //لارجاع القيمه json
-    $url = "http://www.oursms.net/api/sendsms.php?username=$user_name&password=$password&numbers=$phone&message=$msg&sender=$sender&unicode=E&return=json";
+   // $url = "http://www.oursms.net/api/sendsms.php?username=$user_name&password=$password&numbers=$phone&message=$msg&sender=$sender&unicode=E&return=json";
+    /*
+    * Working with  New Version Our sms 
+    * api_token - ger from your portal oursms for your account 
+    * src = username 
+    * dests -> number phone 
+    * body = yout text message 
+    */
+    $url  =  "https://api.oursms.com/api-a/msgs?token={$api_token}&src=$user_name&dests=$phone&body=$msg";
+
     // لارجاع القيمه xml
     //$url = "http://www.oursms.net/api/sendsms.php?username=$user_name&password=$password&numbers=$to&message=$text&sender=$sendername&unicode=E&return=xml";
     // لارجاع القيمه string
